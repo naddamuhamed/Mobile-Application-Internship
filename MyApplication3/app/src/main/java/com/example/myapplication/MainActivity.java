@@ -6,8 +6,10 @@ import static com.google.firebase.database.Logger.Level.INFO;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.media.audiofx.DynamicsProcessing;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -159,8 +161,9 @@ public class MainActivity extends AppCompatActivity {
     private void setupHyperlink() {
         TextView linkTextView = findViewById(R.id.hyperlink);
 //        linkTextView.setMovementMethod(LinkMovementMethod.getInstance());
-
+//
 //        linkTextView.setLinkTextColor(Color.RED);
+
         linkTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
