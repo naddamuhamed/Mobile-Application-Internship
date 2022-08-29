@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools ="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_black2"
+    tools:context=".imageUploadTrial">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Image Upload Menu"
+        android:textColor="#d3d8e3"
+        android:textSize="100px" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="449dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/round_button"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:onClick="GetAll"
+        android:text="GET IMAGES"
+        android:textColor="@color/element_white"
+        android:textSize="20dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="153dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="296dp"
+        android:background="@drawable/round_button"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:onClick="Upload"
+        android:text="UPLOAD IMAGE"
+        android:textColor="@color/element_white"
+        android:textSize="20dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="253dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/round_button"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:onClick="GetByName"
+        android:text="GET IMAGE BY NAME"
+        android:textColor="@color/element_white"
+        android:textSize="20dp" />
+
+</RelativeLayout>
