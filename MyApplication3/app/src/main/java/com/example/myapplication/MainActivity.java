@@ -6,6 +6,7 @@ import static com.google.firebase.database.Logger.Level.INFO;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.media.audiofx.DynamicsProcessing;
 import android.text.TextUtils;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        databaseArtists = FirebaseDatabase.getInstance().getReference("artists");
 
-        mDatabase = FirebaseDatabase.getInstance("https://koba2-e9720-default-rtdb.firebaseio.com/");
+        mDatabase = FirebaseDatabase.getInstance();
         mDatabase.setLogLevel(Logger.Level.DEBUG);
 //        mDatabase.setLogLevel(DEBUG);
 //        mDatabase.setLogLevel(INFO);
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         c=new ArrayList<>();
-        writeNewCar("car4",123,23,"ds");
+//        writeNewCar("car4",123,23,"ds");
         c.add(new Car("car5",234,234,"dsf"));
         c.add(new Car("car6",43,54,"fdh"));
         c.add(new Car("car7",75,98,"reges"));
@@ -113,9 +114,16 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
+                int i=0;
+                 Car retrievedUser=new Car();
+                ArrayList<Car> c1=new ArrayList<>();
+                for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()){
+                    c1.add(messageSnapshot.getValue(Car.class));
+                    System.out.println(c1.get(i));
+                    i++;
+                }
 
-
-//                Car post = dataSnapshot.getValue(Car.class);
+//                Car post = dataSnapshot.getValue();
                 System.out.println("-----------------------------"+dataSnapshot.getValue().toString());
 
 //                System.out.println("-----------------------------"+post.getCarname());
@@ -134,13 +142,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         myRef.child("car4").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @SuppressLint("LongLogTag")
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
-//                    Log.e("-----------------firebase", "Error getting data", task.getException());
+                    Log.e("-----------------firebase", "Error getting data", task.getException());
                 }
                 else {
-//                    Log.d("---------------------firebase", String.valueOf(task.getResult().getValue()));
+                    Log.d("---------------------firebase", String.valueOf(task.getResult().getValue()));
                 }
             }
         });
