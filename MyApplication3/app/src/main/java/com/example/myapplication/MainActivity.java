@@ -5,8 +5,12 @@ import static com.google.firebase.database.Logger.Level.INFO;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.audiofx.DynamicsProcessing;
 import android.text.TextUtils;
@@ -18,6 +22,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.widget.Button;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -60,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
 
          myRef = mDatabase.getReference();
 
+
+//        Intent switchActivityIntent = new Intent(this, imageUploadTrial.class);
+//        startActivity(switchActivityIntent);
+
+
 //        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 //        mUserRef = mDatabase.child("cars");
 
@@ -80,6 +90,20 @@ public class MainActivity extends AppCompatActivity {
 //
 //            }
 //        });
+
+
+
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)){
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }else{
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }
+        }
 
 
 
@@ -165,6 +189,26 @@ public class MainActivity extends AppCompatActivity {
                                 "ModalBottomSheet");
                     }
                 });
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+        }
     }
 
     private void setupHyperlink() {
@@ -253,6 +297,10 @@ public class MainActivity extends AppCompatActivity {
 
         public Car() {
             // Default constructor required for calls to DataSnapshot.getValue(Car.class)
+            this.carmodel = 0;
+            this.carnumber = 0;
+            this.carname = "";
+            this.carobject="";
         }
 
         public Car(String carobject,int carmodel, int carnumber, String carname) {

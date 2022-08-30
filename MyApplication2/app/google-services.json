@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "85109457311",
+    "firebase_url": "https://koba2-e9720-default-rtdb.firebaseio.com",
+    "project_id": "koba2-e9720",
+    "storage_bucket": "koba2-e9720.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85109457311:android:c0c4ed82685f58ede5fdaa",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85109457311-g81gft6fo1goe0kvb9lguba712j69v2o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjc6dLIJItv3T2StMBi6r1Qs8oypP6MuM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85109457311-g81gft6fo1goe0kvb9lguba712j69v2o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

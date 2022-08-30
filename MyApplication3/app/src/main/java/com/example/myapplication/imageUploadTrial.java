@@ -25,5 +25,8 @@ public class imageUploadTrial extends AppCompatActivity {
     public void GetByName(View v) {
         startActivity(new Intent(imageUploadTrial.this, GetByName.class));                  // Start the activity to get an image by its name
     }
+    public void takePhoto(View v){
+        startActivity(new Intent(imageUploadTrial.this, takePhoto.class));
+    }
 
 }

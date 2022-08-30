@@ -12,6 +12,7 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -50,16 +51,17 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.google.android.material:material:1.7.0-beta01'
-//    implementation 'com.google.firebase:firebase-analytics'
-//    implementation "com.google.firebase:firebase-core:$playServices"
-//    implementation "com.google.firebase:firebase-auth:$playServices"
-//    implementation "com.google.firebase:firebase-database:$playServices"
-//    implementation platform('com.google.firebase:firebase-bom:30.3.2')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation "com.google.firebase:firebase-core:$playServices"
+    implementation "com.google.firebase:firebase-auth:$playServices"
+    implementation "com.google.firebase:firebase-database:$playServices"
+    implementation platform('com.google.firebase:firebase-bom:30.3.2')
     implementation 'com.google.gms:google-services:4.3.13'
-//    implementation 'com.google.firebase:firebase-analytics'
-//    compile 'com.google.firebase:firebase-core:16.0.0'
-//    implementation 'com.google.firebase:firebase-database'
-//    implementation 'com.google.firebase:firebase-database:16.0.5'
+    implementation 'com.google.firebase:firebase-analytics'
+
+    implementation 'com.google.firebase:firebase-core:21.1.0'
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-database:20.0.5'
 
 
 }
