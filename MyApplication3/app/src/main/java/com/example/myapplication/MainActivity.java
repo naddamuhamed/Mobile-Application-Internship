@@ -1,33 +1,28 @@
 package com.example.myapplication;
-import static com.google.firebase.database.Logger.Level.DEBUG;
-import static com.google.firebase.database.Logger.Level.ERROR;
-import static com.google.firebase.database.Logger.Level.INFO;
+
+
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.media.audiofx.DynamicsProcessing;
-import android.text.TextUtils;
-import android.text.method.LinkMovementMethod;
-import android.util.Log;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.os.Bundle;
-import android.content.Intent;
-import android.widget.Button;
-import android.view.View;
-import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-//import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +31,10 @@ import com.google.firebase.database.Logger;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+
 
 public class MainActivity extends AppCompatActivity {
     Button switchToSecondActivity;
@@ -44,18 +43,13 @@ public class MainActivity extends AppCompatActivity {
     FirebaseDatabase mDatabase;
     DatabaseReference myRef;
     ArrayList<Car> c;
+
     private static final String TAG = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        fetch('https://jsonplaceholder.typicode.com/posts/1')
-//                .then((response) => response.json())
-//  .then((json) => console.log(json));
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//FirebaseDatabase.getInstance("URL here");
-
-//        databaseArtists = FirebaseDatabase.getInstance().getReference("artists");
 
         mDatabase = FirebaseDatabase.getInstance();
         mDatabase.setLogLevel(Logger.Level.DEBUG);
@@ -63,48 +57,20 @@ public class MainActivity extends AppCompatActivity {
 //        mDatabase.setLogLevel(INFO);
 //        mDatabase.setLogLevel(ERROR);
 
-         myRef = mDatabase.getReference();
+        myRef = mDatabase.getReference();
 
-
-//        Intent switchActivityIntent = new Intent(this, imageUploadTrial.class);
+//        Intent switchActivityIntent = new Intent(this, Drawer.class);
 //        startActivity(switchActivityIntent);
 
 
-//        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//        mUserRef = mDatabase.child("cars");
-
-//        myRef.child("dgfd").setValue("ghdd : welcome").addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if (!task.isSuccessful()) {
-//                    System.out.println("------------firebase Error getting data" +task.getException().toString());
-//                }
-//                else {
-//                    System.out.println("----------firebase success"+String.valueOf(task.getResult()));
-//                }
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                System.out.println("----------firebase exception"+e.toString());
-//
-//            }
-//        });
-
-
+        Intent switchActivityIntent = new Intent(this, imageUploadTrial.class);
+        startActivity(switchActivityIntent);
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)){
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            }else{
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            }
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         }
-
 
 
         c=new ArrayList<>();
@@ -118,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
         setupHyperlink();
         setupHyperlink2();
         switchToSecondActivity = findViewById(R.id.button);
@@ -127,38 +92,60 @@ public class MainActivity extends AppCompatActivity {
         switchToSecondActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               if(checkDataEntered()) switchActivities2();
+                if(checkDataEntered()) switchActivities2();
 
 
             }
         });
 
         myRef.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                int i=0;
-                 Car retrievedUser=new Car();
+
+//                Car retrievedUser=new Car();
+
                 ArrayList<Car> c1=new ArrayList<>();
+
+
+
+//                HashMap<String,Car> topScores = (HashMap<String,Car>) dataSnapshot.getValue();
                 for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()){
-                    c1.add(messageSnapshot.getValue(Car.class));
-                    System.out.println(c1.get(i));
-                    i++;
+
+//                    String retrievedUser=messageSnapshot.getValue().toString();
+
+                    HashMap<String,Car> topScores = (HashMap<String,Car>) messageSnapshot.getValue();
+
+                    Collection<Car> collection = new ArrayList<Car>();
+                    collection=topScores.values();
+
+
+
+                    // for loop
+                    for (Iterator<Car> iterator = collection.iterator(); iterator.hasNext();) {
+                        System.out.println("===================value= " + iterator.next());
+                    }
+
+                    topScores.entrySet().stream().forEach(e ->
+                            System.out.println(e.getKey() + "=" + e.getValue())
+                    );
+
                 }
 
-//                Car post = dataSnapshot.getValue();
+
+
+                String path = dataSnapshot.getRef().toString();
+                long count = dataSnapshot.getChildrenCount();
                 System.out.println("-----------------------------"+dataSnapshot.getValue().toString());
-
-//                System.out.println("-----------------------------"+post.getCarname());
-//                System.out.println("-----------------------------"+value.toString());
-
+                System.out.println("--------------"+path);
+                System.out.println("--------------"+count);
             }
 
 
-
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
                 // Failed to read value
                 System.out.println("--------------------Failed to read value."+ error.toException());
             }
@@ -290,10 +277,11 @@ public class MainActivity extends AppCompatActivity {
 
     public class Car {
 
-        private int carmodel;
-        private int carnumber;
-        private String carname;
-        private String carobject;
+        private int carmodel=0;
+        private int carnumber=0;
+        private String carname="";
+        private String carobject="";
+        public void constructor(){}
 
         public Car() {
             // Default constructor required for calls to DataSnapshot.getValue(Car.class)
@@ -344,6 +332,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 
 }
 

@@ -9,11 +9,57 @@
     android:id="@+id/linearLayout1">
 
 
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#1db995">
+
+
+<!--        <androidx.drawerlayout.widget.DrawerLayout-->
+<!--            xmlns:android="https://schemas.android.com/apk/res/android"-->
+<!--            android:id="@+id/drawer_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" >-->
+
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/container_toolbar"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <include-->
+<!--                        android:id="@+id/toolbar"-->
+<!--                        layout="@layout/toolbar" />-->
+<!--                </LinearLayout>-->
+
+
+<!--                <FrameLayout-->
+<!--                    android:id="@+id/content_frame"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent" />-->
+
+<!--            </LinearLayout>-->
+
+<!--            <ListView-->
+<!--                android:id="@+id/left_drawer"-->
+<!--                android:layout_width="240dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_gravity="start"-->
+<!--                android:background="#FFFFFF"-->
+<!--                android:choiceMode="singleChoice"-->
+<!--                android:divider="@android:color/darker_gray"-->
+<!--                android:dividerHeight="1dp" />-->
+
+<!--        </androidx.drawerlayout.widget.DrawerLayout>-->
+<!--        -->
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
@@ -23,4 +69,8 @@
         app:layout_constraintTop_toBottomOf="@+id/tabLayout"
         tools:layout_editor_absoluteX="8dp" />
 
+
+
 </LinearLayout>
+
+
