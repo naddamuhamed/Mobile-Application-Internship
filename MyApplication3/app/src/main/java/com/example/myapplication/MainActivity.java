@@ -63,8 +63,15 @@ public class MainActivity extends AppCompatActivity {
 //        startActivity(switchActivityIntent);
 
 
-        Intent switchActivityIntent = new Intent(this, imageUploadTrial.class);
+//        Intent switchActivityIntent = new Intent(this, imageUploadTrial.class);
+//        startActivity(switchActivityIntent);
+
+//        Intent switchActivityIntent = new Intent(this, alarm.class);
+//        startActivity(switchActivityIntent);
+
+        Intent switchActivityIntent = new Intent(this, preferences.class);
         startActivity(switchActivityIntent);
+
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){

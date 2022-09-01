@@ -4,7 +4,7 @@
     <string name="sport_fragment">Sport Fragment</string>
     <string name="movie_fragment">Movie Fragment</string>
     <string name="forget_password">Hyperlink TextView</string>
-<!--    <string name="hyperlink"><a href="https://learntodroid.com">forget password?</a></string>-->
+    <!--    <string name="hyperlink"><a href="https://learntodroid.com">forget password?</a></string>-->
     <string name="hyperlink"><u>forget password?</u></string>
     <string name="hp"><u>sign up</u></string>
     <string name="title_activity_scrolling">ScrollingActivity</string>

@@ -1,17 +1,14 @@
 package com.example.myapplication;
 
+import android.app.ProgressDialog;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
-import android.os.Bundle;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-//import androidx.recyclerview.widget.ConcatAdapter;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +28,7 @@ private RecyclerView ps;
     public ArrayList<Photo> ph;
     public List<String> pho;
     ProgressDialog progressDialog;
-
+    static String TAG="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +38,7 @@ private RecyclerView ps;
         ph = new ArrayList<>();
         pho = new ArrayList<>();
         photogetter();
+       ;
 //        viewJsonData();
 
 //        concatAdapter = ConcatAdapter(firstAdapter, secondAdapter,
@@ -52,6 +50,7 @@ private RecyclerView ps;
 //        ps.setLayoutManager(mLayoutManager);
 //        ps.setAdapter(adapter);
     }
+
 
     private void photogetter(){
         Retrofit retrofit = new Retrofit.Builder()
