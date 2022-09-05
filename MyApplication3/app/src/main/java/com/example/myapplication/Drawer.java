@@ -1,8 +1,13 @@
 package com.example.myapplication;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -19,15 +24,25 @@ public class Drawer extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 private ActivityDrawerBinding binding;
-
+    TimePicker alarmTimePicker;
+    PendingIntent pendingIntent;
+    PendingIntent fdg;
+    AlarmManager alarmManager;
+    Button onbtn;
+    Button offbtn;
+    long time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
      binding = ActivityDrawerBinding.inflate(getLayoutInflater());
      setContentView(binding.getRoot());
-
+        alarmTimePicker = (TimePicker) findViewById(R.id.timePicker);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        onbtn=(Button) findViewById(R.id.alarmonbtn);
+        offbtn=(Button) findViewById(R.id.alarmoffbtn);
         setSupportActionBar(binding.appBarDrawer.toolbar);
+//        binding.drawerLayout;
         binding.appBarDrawer.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,7 +61,11 @@ private ActivityDrawerBinding binding;
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_drawer);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,4 +80,29 @@ private ActivityDrawerBinding binding;
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    public void GetAll(View v) {
+        startActivity(new Intent(Drawer.this, GetAll.class));                     // Start the activity to get all images
+    }
+
+    public void Upload(View v) {
+        startActivity(new Intent(Drawer.this, Upload.class));                     // Start the activity to upload an image
+    }
+
+    public void GetByName(View v) {
+        startActivity(new Intent(Drawer.this, GetByName.class));                  // Start the activity to get an image by its name
+    }
+    public void takePhoto(View v){
+        startActivity(new Intent(Drawer.this, takePhoto.class));
+    }
+    public void switchactivity(View v){
+        Intent switchActivityIntent = new Intent(Drawer.this, alarm.class);
+        startActivity(switchActivityIntent);
+    }
+
+    public void switchactivity2(View v){
+        Intent switchActivityIntent = new Intent(Drawer.this, preferences.class);
+        startActivity(switchActivityIntent);
+    }
+
 }

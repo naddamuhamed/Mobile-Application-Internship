@@ -1,46 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".preferences">
+    tools:context=".MainActivity">
 
+    <!--edit text for adding course name-->
     <EditText
-        android:id="@+id/eedittextpreferences"
+        android:id="@+id/idEdtCourseName"
         android:layout_width="match_parent"
-        android:layout_height="112dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="-7dp"
-        android:hint="enter data to save"
-        android:textSize="14sp" />
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/idBtnSave"
+        android:layout_toLeftOf="@id/idBtnSave"
+        android:hint="Enter course Name" />
 
+    <!--edit text for adding course description-->
+    <EditText
+        android:id="@+id/idEdtCourseDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idEdtCourseName"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_toLeftOf="@id/idBtnAdd"
+        android:hint="Enter Course Description" />
+
+    <!--button for adding data to recycler view-->
     <Button
-        android:id="@+id/btnprefrencesetdata"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="493dp"
-        android:text="save data"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/textviewpreferences"
-        android:layout_width="249dp"
-        android:layout_height="31dp"
+        android:id="@+id/idBtnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/idEdtCourseName"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="77dp"
-        android:layout_marginBottom="350dp"
-        android:textColor="@color/black"
-        android:textSize="15sp" />
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:text="Add " />
 
+    <!--button for saving data to shared prefs-->
     <Button
-        android:id="@+id/btnpreferencesgetdata"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="212dp"
-        android:text="rerieve saved data" />
+        android:id="@+id/idBtnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
+        android:text="Save " />
 
+    <!--recycler view to display our data-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/idRVCourses"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/idEdtCourseDescription" />
 
 </RelativeLayout>

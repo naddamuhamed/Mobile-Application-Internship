@@ -1,8 +1,5 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuBuilder;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +16,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 
 import java.util.ArrayList;
 
@@ -94,7 +94,7 @@ public class listViewScreen extends AppCompatActivity {
                 View customView = layoutInflater.inflate(R.layout.popup,null);
                 closePopupBtn = (Button) customView.findViewById(R.id.closebutton);
                 addbtn = (Button) customView.findViewById(R.id.addbutton);
-                imbttn=(Button) customView.findViewById(R.id.im);
+//                imbttn=(Button) customView.findViewById(R.id.im);
                 country = customView.findViewById(R.id.addc);
                 //instantiate popup window
                 popupWindow = new PopupWindow(customView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -122,14 +122,14 @@ public class listViewScreen extends AppCompatActivity {
 //
                     }
                 });
-                imbttn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d(TAG, "Clicked on image!");
-                        switchActivities();
-//
-                    }
-                });
+//                imbttn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Log.d(TAG, "Clicked on image!");
+//                        switchActivities();
+////
+//                    }
+//                });
                 return true;
 //            case R.id.helpMenu:
 //                Log.d(TAG, "Clicked on Help!");

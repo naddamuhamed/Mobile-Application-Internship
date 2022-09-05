@@ -27,7 +27,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Logger;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ import java.util.Iterator;
 
 
 public class MainActivity extends AppCompatActivity {
-    Button switchToSecondActivity;
+    Button loginbtn;
     EditText email;
     EditText pw;
     FirebaseDatabase mDatabase;
@@ -52,25 +51,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mDatabase = FirebaseDatabase.getInstance();
-        mDatabase.setLogLevel(Logger.Level.DEBUG);
+//        mDatabase.setLogLevel(Logger.Level.DEBUG);
 //        mDatabase.setLogLevel(DEBUG);
 //        mDatabase.setLogLevel(INFO);
 //        mDatabase.setLogLevel(ERROR);
 
         myRef = mDatabase.getReference();
 
-//        Intent switchActivityIntent = new Intent(this, Drawer.class);
-//        startActivity(switchActivityIntent);
 
-
-//        Intent switchActivityIntent = new Intent(this, imageUploadTrial.class);
-//        startActivity(switchActivityIntent);
-
-//        Intent switchActivityIntent = new Intent(this, alarm.class);
-//        startActivity(switchActivityIntent);
-
-        Intent switchActivityIntent = new Intent(this, preferences.class);
-        startActivity(switchActivityIntent);
 
 
         if (ContextCompat.checkSelfPermission(this,
@@ -93,13 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
         setupHyperlink();
         setupHyperlink2();
-        switchToSecondActivity = findViewById(R.id.button);
+        loginbtn = findViewById(R.id.loginbtn);
         email=findViewById(R.id.editTextTextEmailAddress);
         pw=findViewById(R.id.editTextTextPassword);
-        switchToSecondActivity.setOnClickListener(new View.OnClickListener() {
+        loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(checkDataEntered()) switchActivities2();
+                if(checkDataEntered()) layoutoptionstarter();
 
 
             }
@@ -236,8 +224,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(switchActivityIntent);
     }
 
-    private void switchActivities2() {
-        Intent switchActivityIntent = new Intent(this, Tabs.class);
+    private void layoutoptionstarter() {
+        Intent switchActivityIntent = new Intent(this, layout_option.class);
         startActivity(switchActivityIntent);
     }
     private void switchActivities3() {

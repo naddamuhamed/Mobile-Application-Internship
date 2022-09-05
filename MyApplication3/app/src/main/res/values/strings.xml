@@ -2,7 +2,7 @@
     <string name="app_name">My Application</string>
     <string name="home_fragment">Home Fragment</string>
     <string name="sport_fragment">Sport Fragment</string>
-    <string name="movie_fragment">Movie Fragment</string>
+    <string name="listviewog">first listview</string>
     <string name="forget_password">Hyperlink TextView</string>
     <!--    <string name="hyperlink"><a href="https://learntodroid.com">forget password?</a></string>-->
     <string name="hyperlink"><u>forget password?</u></string>
@@ -113,9 +113,11 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="imageupload">Image Upload</string>
+    <string name="alarm">Alarm</string>
+    <string name="preferences">Courses Preferences</string>
+    <string name="notification_title">alarm</string>
+    <string name="notification_text">wake up</string>
 
 
 </resources>
