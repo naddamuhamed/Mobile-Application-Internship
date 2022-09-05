@@ -28,6 +28,7 @@ public class alarm extends AppCompatActivity {
     private NotificationManager mNotificationManager;
     PendingIntent notifyPendingIntent;
     private static final int NOTIFICATION_ID = 0;
+    String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class alarm extends AppCompatActivity {
     }
     public void offalarm(View v){
         alarmManager.cancel(notifyPendingIntent);
+
         Toast.makeText(alarm.this, "ALARM OFF", Toast.LENGTH_SHORT).show();
     }
     public void stopalarm(View v){
@@ -63,10 +65,11 @@ public class alarm extends AppCompatActivity {
         if (myIntent==null)
             return;
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                getApplicationContext(), 1, myIntent, 0);
+                getApplicationContext(), 0, myIntent, 0);
         if (pendingIntent==null)
             return;
         alarmManager.cancel(pendingIntent);
+        mNotificationManager.cancel(NOTIFICATION_ID);
 //        AlarmManager.AlarmClockInfo fgh =alarmManager.getNextAlarmClock();
 //        alarmManager.setAlarmClock(fgh,pendingIntent);
     }
@@ -103,8 +106,8 @@ public class alarm extends AppCompatActivity {
 //        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
 //                time, repeatInterval, notifyPendingIntent);
 
-//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 10000, fdg);
-        // alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (time * 1000), pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000, notifyPendingIntent);
+//         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (time * 1000), pendingIntent);
     }
 
 }
