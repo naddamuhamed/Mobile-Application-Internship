@@ -17,7 +17,7 @@ public class Car {
         this.carobject="";
     }
 
-    public Car(String carobject,int carmodel, int carnumber, String carname) {
+    public Car(String carname,int carmodel, int carnumber, String carobject) {
         this.carmodel = carmodel;
         this.carnumber = carnumber;
         this.carname = carname;
@@ -49,12 +49,12 @@ public class Car {
         this.carname = carname;
     }
 
-    public String getcarobject() {
+    public String getCarobject() {
         return carobject;
     }
 
-    public void setcarobject(String carobject) {
-        this.carname = carobject;
+    public void setCarobject(String carobject) {
+        this.carobject = carobject;
     }
 
 }

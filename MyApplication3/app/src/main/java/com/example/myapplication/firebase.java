@@ -1,195 +1,165 @@
 package com.example.myapplication;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Logger;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 public class firebase extends AppCompatActivity {
     FirebaseDatabase mDatabase;
     DatabaseReference myRef;
-    ArrayList<Car> c;
+    static ArrayList<Car> c;
+    PopupWindow popupadd,popupobtion;
+    RelativeLayout linearLayout1;
     ArrayList<Car> c1;
+    Button addcar;
+    Bundle b;
+    EditText carname,carmodel,carnumber,carobject;
+    private RecyclerView carrec;
+FloatingActionButton add;
+    // variable for our adapter class and array list
+    private CarAdapter caradapter;
     private static final String TAG = "";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_firebase);
         mDatabase = FirebaseDatabase.getInstance();
-        mDatabase.setLogLevel(Logger.Level.DEBUG);
+//        mDatabase.setLogLevel(Logger.Level.DEBUG);
         myRef = mDatabase.getReference();
+        carrec = findViewById(R.id.firebaserecview);
+        add=findViewById(R.id.addfloatingpoint);
 
+        LayoutInflater layoutInflater = (LayoutInflater) firebase.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View addpopup = layoutInflater.inflate(R.layout.popupaddcarfirebase,null);
+        popupadd = new PopupWindow(addpopup, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+
+        LayoutInflater tytr = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View optionpopup = tytr.inflate(R.layout.optionpopup,null);
+        popupobtion = new PopupWindow(optionpopup, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+         linearLayout1=findViewById(R.id.relativefirebase);
         c=new ArrayList<>();
+        addcar=addpopup.findViewById(R.id.addcarfirebase);
         c1=new ArrayList<>();
+        add.show();
+        carname=addpopup.findViewById(R.id.addcarname);
+        carmodel=addpopup.findViewById(R.id.addcarmodel);
+        carnumber=addpopup.findViewById(R.id.addcarnumber);
+        carobject=addpopup.findViewById(R.id.addcarobject);
+        Intent intent = getIntent();
+         b=intent.getExtras();
+
+//int position=(int)getIntent().getSerializableExtra("position");
+        if (b!=null){
+            int position=b.getInt("position");
+            int model=b.getInt("model");
+            String name=b.getString("name");
+            String object=b.getString("object");
+            int number=b.getInt("number");
+
+            popupobtion.showAtLocation(linearLayout1, Gravity.CENTER, 0, 0);
+            popupobtion.setFocusable(true);
+
+            popupobtion.update();
+
+//Car sdfs= (Car) b.get("car");
+            Log.i("DFsdgf=================sdgsde","position"+position);
+            Log.i("DFsdg================fsdgsde","position"+model);
+            Log.i("DFsdgf===================sdgsde","position"+name);
+            Log.i("DFsdgf================sdgsde","position"+object);
+            Log.i("DFsdg==================fsdgsde","position"+number);
+//            c=caradapter.getCarArr();
+//            Car sdfs=   c.get(position);
+//            Log.i("DFsdgfsdg=======================sde","object"+sdfs.getCarobject());
+
+        }
+add.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+//        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show();
+        popupadd.showAtLocation(linearLayout1, Gravity.CENTER, 0, 0);
+        popupadd.setFocusable(true);
+
+        popupadd.update();
 
 
+    }
+});
 
-//        writeNewCar("car4",123,23,"ds");
-//        c.add(new Car("car5",234,234,"dsf"));
-//        c.add(new Car("car6",43,54,"fdh"));
-//        c.add(new Car("car7",75,98,"reges"));
-//        c.add(new Car("car8",765,223,"hrt"));
-//        for (int i=0;i<c.size();i++)
-//            writeNewCarobj(c.get(i));
+addcar.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Car n= new Car(carname.getText().toString(), Integer.parseInt(carmodel.getText().toString()),Integer.parseInt(carnumber.getText().toString()),carobject.getText().toString());
+        c.add(n);
+        writeNewCarobj(n);
+        caradapter.notifyItemInserted(c.size());
+//        caradapter.notifyItemInserted();
+       Log.i("dsfsfgfgfgfgfgfgfgfgfgfgd","sdfsd"+carrec.getChildAdapterPosition(view)) ;
+        popupadd.dismiss();
+        Toast.makeText(firebase.this, "Car added", Toast.LENGTH_SHORT).show();
+
+
+    }
+});
+
+
 
 
         myRef.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-//                HashMap<String,Car>ghk=new HashMap<String,Car>();
-                HashMap<String, HashMap<String,Car>> topScores = (HashMap<String, HashMap<String,Car>>) dataSnapshot.getValue();
+                c=new ArrayList<>();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        Log.i("fsdfwesfwee","ewfsd key="+child.getKey());
+                    Log.i("fsdfwesfwee","ewfsd value="+child.getValue());
+                    Car message = child.getValue(Car.class);
 
-                Collection<HashMap<String,Car>> collection;
-                collection=topScores.values();
-//                    Set<String> k=topScores.keySet();
-//                Car[] foos = collection.toArray(new Car[collection.size()]);
-//                    c1.add(foos[0]);
-                Car cc=new Car();
-//                collection.iterator().next();
-                // for loop
-                for (Iterator<HashMap<String,Car>> iterator = collection.iterator(); iterator.hasNext();) {
-//                        if (e.getKey()=="carnumber")
-//                    while (collection.iterator().hasNext()){
-//                            cc.setCarnumber(iterator.next().getCarnumber());
-//////                        if (e.getKey()=="carmodel")
-//                            cc.setCarmodel(iterator.next().getCarmodel());
-//////                        if (e.getKey()=="carobject")
-//                        cc.setcarobject(iterator.next().getcarobject());
-//////                        if (e.getKey()=="carname")
-//                        cc.setCarname((Car) iterator.next().getCarname());
-//                        c1.add(iterator.next());
-
-//                        cc=new Car();
-                    System.out.println("===================value= " + iterator.next());
+                            c.add(message);
 
 
-
-//                    collection.toArray().toString();
-//c1.add(csdf[0]);
+                    Log.i("fsdfwesfwee","ewfsd object="+message.getCarobject());
+                    Log.i("fsdfwesfwee","ewfsd number="+message.getCarnumber());
+                    Log.i("oilo9888888888", "name = " + message.getCarname());
+                    Log.i(TAG, "jhjjjjjjj67676767676767 model= " + message.getCarmodel());
                 }
-
-                topScores.entrySet().stream().forEach(e ->
-                                System.out.println(e.getKey() + "=" + e.getValue())
-//                            System.out.println(e.getKey() + "=" + e.getValue())
-                );
-
-                for(HashMap.Entry<String,HashMap<String,Car>> e: topScores.entrySet()){
-
-                    System.out.println(e.getKey() + "=" + e.getValue());
-
-                    for(Map.Entry<String,Car> g:e.getValue().entrySet()){
-//                        if (g.getKey()=="carnumber")
-                        System.out.println(g);
-//                        cc.setCarnumber(g.getValue().getCarnumber());
-////                        if (g.getKey()=="carmodel")
-//                            cc.setCarmodel(g.getValue().getCarmodel());
-////                        if (g.getKey()=="carobject")
-//                            cc.setcarobject(g.getValue().getcarobject());
-////                        if (g.getKey()=="carname")
-//                            cc.setCarname(g.getValue().getCarname());
-//                        c1.add(cc);
-                    }
-//                    for (:
-//                         ) {
-//
-//                    }
-//                        if (e.getKey()=="carnumber")
-//                            cc.setCarnumber(e.getValue().getCarnumber());
-////                        if (e.getKey()=="carmodel")
-////                            cc.setCarmodel(e.getValue().getCarmodel());
-////                        if (e.getKey()=="carobject")
-//                            cc.setcarobject(e.getValue().getcarobject());
-////                        if (e.getKey()=="carname")
-//                            cc.setCarname(e.getValue().getCarname());
-//                        c1.add(cc);
-//                         cc=new Car();
-
-                }
-
-//                for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()){
-//
-//                    HashMap<String,Car> topScores = (HashMap<String,Car>) messageSnapshot.getValue();
-//
-//                    Collection<Car> collection;
-//                    collection=topScores.values();
-//
-////                    Car[] foos = collection.toArray(new Car[collection.size()]);
-////                    c1.add(foos[0]);
-////                    Set<String> k=topScores.keySet();
-//                    Car cc=new Car();
-////                    collection.iterator().next();
-//                    // for loop
-//                    for (Iterator<Car> iterator = collection.iterator(); iterator.hasNext();) {
-////                        if (e.getKey()=="carnumber")
-////                    while (collection.iterator().hasNext()){
-////                            cc.setCarnumber(collection.iterator().next().getCarnumber());
-//////                        if (e.getKey()=="carmodel")
-////                            cc.setCarmodel(collection.iterator().next().getCarmodel());
-//////                        if (e.getKey()=="carobject")
-////                        cc.setcarobject(collection.iterator().next().getcarobject());
-//////                        if (e.getKey()=="carname")
-////                        cc.setCarname(collection.iterator().next().getCarname());
-////                        c1.add(collection.iterator().);
-//
-////                        cc=new Car();
-//                        System.out.println("===================value= " + iterator.next());
-//
-//
-////                        collection.toArray().toString();
-////c1.add(csdf[0]);
-//                    }
-//
-//                    topScores.entrySet().stream().forEach(e ->
-//                            System.out.println(e.getKey() + "=" + e.getValue())
-////                            System.out.println(e.getKey() + "=" + e.getValue())
-//                    );
-//ArrayList<String>sdf=new ArrayList<>();
-//                    for(HashMap.Entry<String,Car> e: topScores.entrySet()){
-//
-//                        System.out.println(e.getKey() + "=" + e.getValue());
-//
-////                        if (e.getKey()=="carnumber")
-////                        sdf.add(e.getValue().toString());
-////                            cc.setCarnumber(e.getValue().getCarnumber());
-//////                        if (e.getKey()=="carmodel")
-////                            cc.setCarmodel(e.getValue().getCarmodel());
-//////                        if (e.getKey()=="carobject")
-////                            cc.setcarobject(e.getValue().getcarobject());
-//////                        if (e.getKey()=="carname")
-////                            cc.setCarname(e.getValue().getCarname());
-////                        c1.add(cc);
-////                         cc=new Car();
-//
-//                    }
-//
-//                }
+                buildRecyclerView(c);
 
                 String path = dataSnapshot.getRef().toString();
                 long count = dataSnapshot.getChildrenCount();
                 System.out.println("-----------------------------"+dataSnapshot.getValue().toString());
-                System.out.println("--------------"+path);
+//                System.out.println("--------------"+path);
                 System.out.println("--------------"+count);
             }
 
@@ -201,28 +171,15 @@ public class firebase extends AppCompatActivity {
             }
         });
 
-//        myRef.get();
 
-        myRef.child("car4").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @SuppressLint("LongLogTag")
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("-----------------firebase", "Error getting data", task.getException());
-                }
-                else {
-                    Log.d("---------------------firebase", String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });
     }
 
-    public void writeNewCar(String carobject,int carmodel, int carnumber, String carname) {
+    public void  writeNewCar(String carobject,int carmodel, int carnumber, String carname) {
         Car car = new Car(carobject,carmodel, carnumber,carname);
 //        myRef.child("car3").child("carmodel").setValue(car.getCarmodel());
 //        myRef.child("car3").child("carnumber").setValue(car.getCarnumber());
 //        myRef.child("car3").child("carname").setValue(car.getCarname());
-        myRef.child(car.getcarobject()).setValue(car);
+        myRef.child(car.getCarobject()).setValue(car);
 //        mUserRef.child("car2").child("carname").setValue(car.getCarname());
         Log.e("=======================", "Clicked on add!");
     }
@@ -232,9 +189,23 @@ public class firebase extends AppCompatActivity {
 //        myRef.child("car3").child("carmodel").setValue(car.getCarmodel());
 //        myRef.child("car3").child("carnumber").setValue(car.getCarnumber());
 //        myRef.child("car3").child("carname").setValue(car.getCarname());
-        myRef.child(car.getcarobject()).setValue(car);
+        myRef.child(car.getCarobject()).setValue(car);
 //        mUserRef.child("car2").child("carname").setValue(car.getCarname());
         Log.e("=================", "Clicked on add!");
+    }
+    private void buildRecyclerView(ArrayList<Car> cerw) {
+        // initializing our adapter class.
+        caradapter = new CarAdapter(cerw, this);
+
+        // adding layout manager to our recycler view.
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        carrec.setHasFixedSize(true);
+
+        // setting layout manager to our recycler view.
+        carrec.setLayoutManager(manager);
+
+        // setting adapter to our recycler view.
+        carrec.setAdapter(caradapter);
     }
 
 }
