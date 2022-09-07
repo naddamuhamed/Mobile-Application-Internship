@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -51,6 +53,11 @@ public class firebase extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_firebase);
+        if(isNetworkAvailable())
+            Toast.makeText(firebase.this, "internet available", Toast.LENGTH_SHORT).show();
+        else
+        Toast.makeText(firebase.this, "internet not available", Toast.LENGTH_SHORT).show();
+
         mDatabase = FirebaseDatabase.getInstance();
 //        mDatabase.setLogLevel(Logger.Level.DEBUG);
         myRef = mDatabase.getReference();
@@ -172,6 +179,11 @@ addcar.setOnClickListener(new View.OnClickListener() {
         carrec.setAdapter(caradapter);
     }
 
-
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 
 }
