@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EDIT CAR"
+        android:textSize="15pt"
+        android:id="@+id/editcartext"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editcarname"
+        android:hint="carname"
+        android:inputType="text"
+        android:minHeight="30dp"
+        android:layout_marginLeft="25dp"
+        android:layout_below="@id/editcartext"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editcarmodel"
+        android:hint="carmodel"
+        android:inputType="number"
+        android:minHeight="30dp"
+        android:layout_marginLeft="25dp"
+        android:layout_below="@id/editcarname"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editcarnumber"
+        android:hint="carnumber"
+        android:inputType="number"
+        android:minHeight="30dp"
+        android:layout_marginLeft="25dp"
+        android:layout_below="@id/editcarmodel"/>
+<!--    <EditText-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/addcarobject"-->
+<!--        android:hint="carobject"-->
+<!--        android:layout_marginLeft="25dp"-->
+<!--        android:inputType="text"-->
+<!--        android:minHeight="30dp"-->
+<!--        android:layout_below="@id/addcarnumber"/>-->
+    <Button
+        android:id="@+id/editcarfirebase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editcarnumber"
+        android:layout_marginLeft="25dp"
+        android:text="EDIT" />
+</RelativeLayout>
